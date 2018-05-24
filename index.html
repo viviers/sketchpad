@@ -18,7 +18,6 @@
 
 :root {
   --n:30;
-  --randomColor: black;
 }
 
 h1 {
@@ -61,21 +60,12 @@ button:hover {
 }
 
 .hovered {
-  background: var(--randomColor);
+  background: gray;
 }
 
 </style>
 
 <script>
-//random colour generator
-function getRandomColor() {
-  var letters = '0123456789ABCDEF';
-  var color = '#';
-  for (var i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
-}
 
 
 //creates default grid
@@ -89,8 +79,7 @@ const gridContainer = document.querySelector(".grid-container");
 //creating default hover function
 const squares = document.querySelectorAll(".grid-container div");
 squares.forEach(square => square.addEventListener('mouseover', () => {
-  square.classList.add('hovered')
-  document.documentElement.style.setProperty('--randomColor', getRandomColor());
+  square.classList.add('hovered');
 }));
 
 const button1 = document.querySelector(".button_1");
