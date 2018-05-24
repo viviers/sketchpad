@@ -86,8 +86,19 @@ squares.forEach(square => square.addEventListener('mouseover', () => {
   square.classList.add('hovered');
 }));
 
+//function to remove hover off squares
+function removeHovered(x) {
+  x.forEach(xItem => {
+    xItem.classList.remove('hovered')
+  });
+}
+
 const button1 = document.querySelector(".button_1");
-button1.addEventListener('click', () => squares.forEach(square => square.classList.remove('hovered')));
+button1.addEventListener('click', () => {
+  const squares = document.querySelectorAll(".grid-container div");
+  removeHovered(squares)
+}
+);
 
 
 //FUNCTION TO CREATE A NEW GRID
