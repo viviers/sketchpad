@@ -1,0 +1,130 @@
+<html>
+
+<body>
+
+<h1>Etch-A-Sketch Online</h1>
+  <div class="grid-container"></div>
+
+  <div class="button-container">
+    <button class="button_1">Clear Grid</button>
+    <button class="button_2">New Grid</button>
+  </div>
+
+</body>
+
+</html>
+
+<style>
+
+:root {
+  --n:30;
+  --randomColor: black;
+}
+
+h1 {
+  width: 500px;
+  text-align: center;
+  font-family: sans-serif;
+}
+
+.button-container {
+  width: 500px;
+  text-align: center;
+}
+
+button {
+  border-radius: 0px;
+  width: 125px;
+  height: 30px;
+  border: 1px solid black;
+  margin: 5px;
+  font-size: 15px;
+}
+
+button:hover {
+  background-color: black;
+  color: white;
+}
+
+.grid-container {
+  display: inline-grid;
+  width: 500px;
+  height: 500px;
+  grid-template-columns: repeat(var(--n), 1fr);
+  grid-template-rows: repeat(var(--n), 1fr);
+  border: 1px solid gray;
+
+}
+
+.grid-container div{
+
+}
+
+.hovered {
+  background: var(--randomColor);
+}
+
+</style>
+
+<script>
+//random colour generator
+function getRandomColor() {
+  var letters = '0123456789ABCDEF';
+  var color = '#';
+  for (var i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
+
+//creates default grid
+const gridContainer = document.querySelector(".grid-container");
+  for (var i=1; i <= (30*30); i++) {
+    const x = document.createElement('div');
+    gridContainer.appendChild(x);
+    x.classList.add(i);
+  };
+
+//creating default hover function
+const squares = document.querySelectorAll(".grid-container div");
+squares.forEach(square => square.addEventListener('mouseover', () => {
+  square.classList.add('hovered')
+  document.documentElement.style.setProperty('--randomColor', getRandomColor());
+}));
+
+const button1 = document.querySelector(".button_1");
+button1.addEventListener('click', () => squares.forEach(square => square.classList.remove('hovered')));
+
+
+//FUNCTION TO CREATE A NEW GRID
+const button2 = document.querySelector(".button_2");
+
+button2.addEventListener('click', () => {
+const N = parseInt(window.prompt("How many squares per side would you like?", "10"));
+if (N > 200 || N < 1) {
+  const N = parseInt(window.prompt("Please enter a number between 1 and 200.", "10"));
+}
+document.documentElement.style.setProperty('--n', N);
+
+//deleting all divs in gridContainer
+while (gridContainer.firstChild) {
+  gridContainer.removeChild(gridContainer.firstChild);
+}
+
+//readding the custom amount of divs into gridcontainer
+for (var i=1; i <= (N*N); i++) {
+  const x = document.createElement('div');
+  gridContainer.appendChild(x);
+  x.classList.add(i);
+};
+
+//readding hover function to new divs
+const squares = document.querySelectorAll(".grid-container div");
+squares.forEach(square => square.addEventListener('mouseover', () => square.classList.add('hovered')));
+
+});
+//END new grid event listener
+
+
+</script>
